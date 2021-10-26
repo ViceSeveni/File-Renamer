@@ -16,26 +16,26 @@ def get_filetype(filename=''):
 
 def rename_files():
 #! --The Folder To Be Searched Through    
-    search_folder = r"C:\PythonScripts\testing\test1\\"
+    search_folder = r""
     
 #! --This Is The Text To Be Removed        
-    tbr = ['[oceanofpdf.net]' , 'OceanOfPDF.org_' , 'oceanofpdf.org-']
+    tbr = []
     
     file_list = os.listdir(search_folder)
     
     for file in file_list:
         for term in tbr:
-            term_slice = len(term)
             if term.lower() in file.lower():
+                
                 file_type = get_filetype(file)
-                type_slice = int(len(file_type))
-                file_name = file[: -type_slice]
-                print(f'Current name: {file_name}')
-                    
-                    
+                
+                file_name = file.replace(file_type , '')
+                new_name = file_name.replace(term , '')
+                                        
                 old_path = f'{search_folder}{file}'
-                new_name = file_name[term_slice:]
                 new_path = f'{search_folder}{new_name}'
+                
+                print(f'Current name: {file_name}')
                 
                 try:
                     os.rename(old_path , new_path)
